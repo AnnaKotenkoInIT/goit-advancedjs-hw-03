@@ -1,4 +1,4 @@
-import { API_KEY } from './keys.js';
+import { API_KEY } from '../../keys.js';
 
 export default function searchImagesByQuery(query) {
   const URL = 'https://pixabay.com/api/';
