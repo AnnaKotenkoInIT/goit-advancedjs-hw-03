@@ -1,6 +1,5 @@
-import { API_KEY } from '../../keys.js';
-
 export default function searchImagesByQuery(query) {
+  const API_KEY = '45248332-5310999e5b0f9864a5c1f02e8';
   const URL = 'https://pixabay.com/api/';
 
   return fetch(`${URL}?key=${API_KEY}&q=${query}&image_type=photo&orientation=horizontal&safesearch=true`)
