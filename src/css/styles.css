@@ -71,7 +71,7 @@
   border: 1px solid #4e75ff;
 }
 
-.form-gallery {
+.form {
   display: flex;
   justify-content: center;
   gap: 8px;
@@ -161,6 +161,6 @@
   }
 }
 
-.hiden {
+.hidden {
   display: none;
 }
