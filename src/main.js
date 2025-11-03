@@ -11,29 +11,40 @@ const loader = document.querySelector('.loader');
 form.addEventListener('submit', handleSubmit);
 
 function handleSubmit(event) {
-  clearImages();
   event.preventDefault();
+  clearImages();
+
+  const wordForSearch = input.value.trim();
+
+  if (wordForSearch === '') {
+    iziToast.error({
+      position: 'topRight',
+      message: 'Please fill the input',
+    });
+    return;
+  }
+
   loader.classList.remove('hidden');
-  let wordForSearch = input.value.trim();
-  searchImagesByQuery(`${wordForSearch}`).then(data => {
-    if (data.total === 0) {
-      iziToast.error({
-        position: 'topRight',
-        message: 'Sorry, there are no images matching your search query. Please try again!',
-      });
-      loader.classList.add('hidden');
-      return;
-    }
-    if (wordForSearch === '') {
-      iziToast.error({
-        position: 'topRight',
-        message: 'Please fill the input',
-      });
-      loader.classList.add('hidden');
-      return;
-    } else {
+
+  searchImagesByQuery(wordForSearch)
+    .then(data => {
+      if (data.total === 0) {
+        iziToast.error({
+          position: 'topRight',
+          message: 'Sorry, there are no images matching your search query. Please try again!',
+        });
+        return;
+      }
+
       createImages(data);
-    }
-    loader.classList.add('hidden');
-  });
+    })
+    .catch(err => {
+      iziToast.error({
+        position: 'topRight',
+        message: 'Error loading images',
+      });
+    })
+    .finally(() => {
+      loader.classList.add('hidden');
+    });
 }
